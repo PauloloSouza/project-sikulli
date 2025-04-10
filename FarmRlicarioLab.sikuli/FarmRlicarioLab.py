@@ -17,17 +17,17 @@ def lootBox():
     if r1.exists (box):
         r1.click(box);
 
-def cura():
+def heal():
     if not exists (Pattern("nl11.png").similar(0.85)) and exists (Pattern("1686853568558.png").similar(0.80)):
         type ("5");
 
-def curaPet():
+def healPet():
     if not exists (Pattern("B483.png").similar(0.80)) and exists (Pattern("1686853659783.png").similar(0.80)):
         type ("3");
         
 while running:
-    cura();
-    curaPet();
+    heal();
+    healPet();
     #lootBox();
 
     if exists (box2):
