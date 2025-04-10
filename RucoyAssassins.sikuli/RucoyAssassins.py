@@ -1,19 +1,19 @@
 running = True;
-lado = 0;
-temMob = True;
-florVerm = Pattern("florDireita.png").similar(0.85);
-volta = Pattern("volta.png").similar(0.69);
+side = 0;
+monster = True;
+redFlower = Pattern("florDireita.png").similar(0.85);
+backIcon = Pattern("volta.png").similar(0.69);
 loot1 = Pattern("loot.png").similar(0.85);
 reco = Pattern("reco.png").similar(0.79);
-cercaVerde = Pattern("1697254269982.png").exact();
-vasoCinza = Pattern("1697254475754.png").similar(0.90);
+greenPlant = Pattern("1697254269982.png").exact();
+grayJar = Pattern("1697254475754.png").similar(0.90);
 
-AssasAmar1 = "AssasAmar1.png";
-AssasAmar2 = "AssasAmar2.png";
-AssasAmar3 = "AssasAmar3.png";
-AssasVerm1 = "1697253209369.png";
-AssasVerm2 = "1697253185407.png";
-AssasVerm3 = "1697253238418.png";
+redMob1 = "AssasAmar1.png";
+redMob2 = "AssasAmar2.png";
+redMob3 = "AssasAmar3.png";
+yellowMob1 = "1697253209369.png";
+yellowMob2 = "1697253185407.png";
+yellowMob3 = "1697253238418.png";
 r1 = Region(673,304,183,190);
 regR1 = Region(786,293,479,213);
 regL1 = Region(255,293,475,212);
@@ -24,68 +24,68 @@ def loot():
         type ("J");
         
 def back():
-    if exists (volta):
+    if exists (backIcon):
         type ("V");
 
 def reconnect():
     if exists (reco):
         click (reco);
 
-def procuraMob():
+def findMonster():
     reconnect();
-    global temMob;
-    temMob = True;
-    while temMob:
-        temMob = False;
-        if r1.exists (AssasAmar1):
+    global monster;
+    monster = True;
+    while monster:
+        monster = False;
+        if r1.exists (yellowMob1):
             type ("S");
             wait (8);
             loot();
             back();
-            temMob = True;
-        if r1.exists (AssasAmar2):
+            monster = True;
+        if r1.exists (yellowMob2):
             type ("D");
             wait (8);
             loot();
             back();
-            temMob = True;
-        if r1.exists (AssasAmar3):
+            monster = True;
+        if r1.exists (yellowMob3):
             type ("A");
             wait (8);
             loot();
             back();
-            temMob = True;
-        if r1.exists (AssasVerm1):
+            monster = True;
+        if r1.exists (redMob1):
             type ("S");
             wait (7);
             loot();
             back();
-            temMob = True;
-        if r1.exists (AssasVerm2):
+            monster = True;
+        if r1.exists (redMob2):
             type ("D");
             wait (7);
             loot();
             back();
-            temMob = True;
-        if r1.exists (AssasVerm3):
+            monster = True;
+        if r1.exists (redMob3):
             type ("A");
             wait (7);
             loot();
             back();
-            temMob = True;
+            monster = True;
 
-def andaDireita():
+def walkRight():
     reconnect();
-    global lado;
-    global temMob;
-    if (lado == 0):
-        procuraMob();
-        if (temMob == False):
-            if rRight.exists (vasoCinza):
+    global side;
+    global monster;
+    if (side == 0):
+        findMonster();
+        if (monster == False):
+            if rRight.exists (grayJar):
                 lado = 1;
-            if regR1.exists (florVerm):
+            if regR1.exists (redFlower):
                 try:
-                    regR1.click (florVerm);
+                    regR1.click (redFlower);
                     back();
                     reconnect();
                     wait (6);
@@ -96,18 +96,18 @@ def andaDireita():
                 click (Location(1232, 395));
                 wait (7);
 
-def andaEsquerda():
+def walkLeft():
     reconnect();
-    global lado;
-    global temMob;
-    if (lado == 1):
-        procuraMob();
-        if (temMob == False):
-            if rLeft.exists (cercaVerde):
+    global side;
+    global monster;
+    if (side == 1):
+        findMonster();
+        if (monster == False):
+            if rLeft.exists (greenPlant):
                 lado = 0;
-            if regL1.exists (florVerm):
+            if regL1.exists (redFlower):
                 try:
-                    regL1.click (florVerm);
+                    regL1.click (redFlower);
                     back();
                     reconnect();
                     wait (6);
@@ -125,6 +125,6 @@ def runHotkey(event):
 Env.addHotkey(Key.F2, KeyModifier.CTRL, runHotkey)
 
 while running:
-    procuraMob();
-    andaDireita();
-    andaEsquerda();
+    findMonster();
+    walkRight();
+    walkLeft();
